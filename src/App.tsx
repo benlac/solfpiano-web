@@ -1,34 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useEffect, useState } from 'react';
+import { StoreProvider, useStore } from './store/store';
+import Selectors from './components/Selectors';
+import SheetMusic from './components/SheetMusic';
+import { levels, upKeyY } from './helpers/levels';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [upKey, setUpKey] = useState<Array<number>>([]);
+  const [{ parameters }, dispatch] = useStore();
 
+  const currentNotes = () => {
+    if (parameters.level && parameters.exercice) {
+      const currentKey = levels[parameters.level][parameters.exercice];
+      // setUpKey()
+      let res: Array<number> = [];
+      currentKey.upKey.map((el: any) => {
+        res = [...res, upKeyY[el].y];
+      });
+      setUpKey(res);
+      console.log(upKeyY);
+      console.log(currentKey);
+    }
+  };
+  useEffect(() => {
+    currentNotes();
+  }, [parameters]);
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div className="flex justify-center flex-col items-center bg-white">
+      <h1>Solfpiano</h1>
+      <Selectors />
+      {parameters.level !== 0 && parameters.exercice !== 0 && (
+        <SheetMusic upKey={upKey} />
+      )}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
