@@ -1,7 +1,7 @@
-import { State, Action } from '../types/store/parameters';
+import { StateParameters, Action } from '../types/store/parameters';
 
 // Initial State
-export const parametersInitialState: State = {
+export const parametersInitialState: StateParameters = {
   level: 1,
   exercice: 1,
 };

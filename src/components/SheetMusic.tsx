@@ -1,12 +1,31 @@
 import * as React from 'react';
+import { downkeyY } from '../helpers/levels';
+import { useStore } from '../store/store';
 
 interface Props {
   upKey: Array<number>;
+  downKey: Array<number>;
 }
 
 const SheetMusic = (props: Props) => {
-  const { upKey } = props;
+  const [{ game }] = useStore();
+  const { upKey, downKey } = props;
 
+  React.useEffect(() => {
+    console.log('count', game.count);
+  }, [game.count]);
+
+  const calculX = () => {
+    let res = 82;
+    if (game.count % 2 === 1) {
+      res = res + 22;
+    }
+    return res;
+  };
+
+  React.useEffect(() => {
+    calculX();
+  }, [game.count]);
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -204,7 +223,66 @@ const SheetMusic = (props: Props) => {
               strokeOpacity: 1,
             }}
           />
+          {/* <line
+            x1="80"
+            x2="80"
+            y1="200"
+            y2="0"
+            style={{
+              fill: 'none',
+              stroke: '#000',
+              strokeWidth: 1,
+              strokeLinecap: 'butt',
+              strokeLinejoin: 'miter',
+              strokeOpacity: 1,
+            }}
+          ></line> */}
+          <line
+            x1={`${82 + game.count * 22}`}
+            x2={`${82 + game.count * 22}`}
+            y1="200"
+            y2="0"
+            style={{
+              fill: 'none',
+              stroke: '#000',
+              strokeWidth: 1,
+              strokeLinecap: 'butt',
+              strokeLinejoin: 'miter',
+              strokeOpacity: 1,
+            }}
+          ></line>
           {upKey.map((el, i) => (
+            <>
+              <path
+                d="M303.137 299.651c-3.396 1.82-5.205 5.115-4.092 7.593 1.187 2.644 5.267 3.39 9.107 1.665 3.84-1.724 5.992-5.269 4.804-7.913-1.187-2.643-5.267-3.39-9.106-1.665-.24.108-.486.199-.713.32z"
+                transform={`rotate(180 ${194 + i * 11} ${el})`}
+                opacity={0.9}
+                fill="#000"
+                fillOpacity={1}
+                fillRule="evenodd"
+                stroke="none"
+                strokeWidth={0.2}
+                strokeMiterlimit={4}
+                strokeDashoffset={0}
+                strokeOpacity={1}
+              />
+              <path
+                d="M299.505 305.984v33.588"
+                transform={`rotate(180 ${194 + i * 11} ${el})`}
+                fill="none"
+                fillOpacity={0.75}
+                fillRule="evenodd"
+                stroke="#000"
+                strokeWidth={1.5}
+                strokeLinecap="butt"
+                strokeLinejoin="miter"
+                strokeMiterlimit={4}
+                strokeDasharray="none"
+                strokeOpacity={1}
+              />
+            </>
+          ))}
+          {downKey.map((el, i) => (
             <>
               <path
                 d="M303.137 299.651c-3.396 1.82-5.205 5.115-4.092 7.593 1.187 2.644 5.267 3.39 9.107 1.665 3.84-1.724 5.992-5.269 4.804-7.913-1.187-2.643-5.267-3.39-9.106-1.665-.24.108-.486.199-.713.32z"

@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useStore } from '../store/store';
 import SelectComponent from './SelectComponent';
+import toc_metronome from '../assets/audio/toc_metronome.mp3';
+import doSong from '../assets/audio/do-k.mp3';
+import solSong from '../assets/audio/sol-k.mp3';
+import useInterval from '../hooks/useInterval';
 
 const levels = [
   { value: 1, label: 'Level 1' },
@@ -15,8 +19,32 @@ const exercices = [
 ];
 
 function Selectors() {
-  const [{ parameters }, dispatch] = useStore();
-  useStore;
+  const [{ parameters, game }, dispatch] = useStore();
+  const metronome = new Audio(toc_metronome);
+  const do_ = new Audio(doSong);
+  const sol_ = new Audio(solSong);
+  // console.log(game);
+
+  // console.log(parameters);
+
+  useInterval(
+    () => {
+      // console.log(game.keyToPlay[game.count]);
+      // console.log(game.currentDownKey[game.count]);
+      // setCount(count + 1);
+      dispatch({ type: 'SET_COUNT', payload: game.count + 1 });
+      metronome.play();
+      eval(game.keyToPlay[game.count]).play();
+    },
+    game.playing ? (60 / 60) * 1000 : null
+  );
+
+  useEffect(() => {
+    if (game.count >= 20) {
+      dispatch({ type: 'SET_PLAYING', payload: false });
+    }
+  }, [game.count]);
+
   return (
     <div>
       <h1>Choose your level</h1>
@@ -37,8 +65,11 @@ function Selectors() {
         <button
           className="h-10 px-6 font-semibold rounded-md bg-black text-white"
           type="button"
+          onClick={() =>
+            dispatch({ type: 'SET_PLAYING', payload: !game.playing })
+          }
         >
-          Start
+          {game.playing ? 'Pause' : 'Start'}
         </button>
       )}
     </div>
