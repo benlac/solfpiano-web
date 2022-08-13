@@ -12,7 +12,9 @@ const SheetMusic = (props: Props) => {
   const { upKey, downKey } = props;
 
   useEffect(() => {
-    if (
+    if (game.count >= 40) {
+      setCurrentPosition(82);
+    } else if (
       game.count !== 0 &&
       game.count !== 1 &&
       game.count !== 2 &&

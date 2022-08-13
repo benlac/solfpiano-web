@@ -36,6 +36,7 @@ function Selectors() {
   useEffect(() => {
     if (game.count >= 40) {
       dispatch({ type: 'SET_PLAYING', payload: false });
+      dispatch({ type: 'SET_COUNT', payload: 0 });
     }
   }, [game.count]);
 
