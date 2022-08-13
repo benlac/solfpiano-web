@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { downkeyY } from '../helpers/levels';
+import React, { useEffect, useState } from 'react';
 import { useStore } from '../store/store';
 
 interface Props {
@@ -8,24 +7,21 @@ interface Props {
 }
 
 const SheetMusic = (props: Props) => {
+  const [currentPosition, setCurrentPosition] = useState<number>(82);
   const [{ game }] = useStore();
   const { upKey, downKey } = props;
 
-  React.useEffect(() => {
-    console.log('count', game.count);
-  }, [game.count]);
-
-  const calculX = () => {
-    let res = 82;
-    if (game.count % 2 === 1) {
-      res = res + 22;
+  useEffect(() => {
+    if (
+      game.count !== 0 &&
+      game.count !== 1 &&
+      game.count !== 2 &&
+      game.count % 2 === 1
+    ) {
+      setCurrentPosition(currentPosition + 22);
     }
-    return res;
-  };
-
-  React.useEffect(() => {
-    calculX();
   }, [game.count]);
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -238,8 +234,8 @@ const SheetMusic = (props: Props) => {
             }}
           ></line> */}
           <line
-            x1={`${82 + game.count * 22}`}
-            x2={`${82 + game.count * 22}`}
+            x1={`${currentPosition}`}
+            x2={`${currentPosition}`}
             y1="200"
             y2="0"
             style={{

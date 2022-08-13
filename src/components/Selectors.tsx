@@ -23,15 +23,9 @@ function Selectors() {
   const metronome = new Audio(toc_metronome);
   const do_ = new Audio(doSong);
   const sol_ = new Audio(solSong);
-  // console.log(game);
-
-  // console.log(parameters);
 
   useInterval(
     () => {
-      // console.log(game.keyToPlay[game.count]);
-      // console.log(game.currentDownKey[game.count]);
-      // setCount(count + 1);
       dispatch({ type: 'SET_COUNT', payload: game.count + 1 });
       metronome.play();
       eval(game.keyToPlay[game.count]).play();
@@ -40,7 +34,7 @@ function Selectors() {
   );
 
   useEffect(() => {
-    if (game.count >= 20) {
+    if (game.count >= 40) {
       dispatch({ type: 'SET_PLAYING', payload: false });
     }
   }, [game.count]);

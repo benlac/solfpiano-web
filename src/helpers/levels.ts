@@ -43,6 +43,8 @@ export const levels: any = {
         'n_212',
         'n_208',
         'n_212',
+        'n_212',
+        'n_212',
       ],
       speedLimits: [15, 20],
     },
