@@ -10,16 +10,13 @@ const SheetMusic = (props: Props) => {
   const [currentPosition, setCurrentPosition] = useState<number>(82);
   const [{ game }] = useStore();
   const { upKey, downKey } = props;
-
+  console.log(game.keyToPlay);
+  console.log(upKey);
   useEffect(() => {
-    if (game.count >= 40) {
+    // dynamiser 42 par le nombre de note possible dans le store
+    if (game.count >= 42) {
       setCurrentPosition(82);
-    } else if (
-      game.count !== 0 &&
-      game.count !== 1 &&
-      game.count !== 2 &&
-      game.count % 2 === 1
-    ) {
+    } else if (game.count > 3 && game.count % 2 === 1) {
       setCurrentPosition(currentPosition + 22);
     }
   }, [game.count]);
@@ -235,27 +232,30 @@ const SheetMusic = (props: Props) => {
               strokeOpacity: 1,
             }}
           ></line> */}
-          <line
-            x1={`${currentPosition}`}
-            x2={`${currentPosition}`}
-            y1="200"
-            y2="0"
-            style={{
-              fill: 'none',
-              stroke: '#000',
-              strokeWidth: 1,
-              strokeLinecap: 'butt',
-              strokeLinejoin: 'miter',
-              strokeOpacity: 1,
-            }}
-          ></line>
+          {game.playing && (
+            <line
+              x1={`${currentPosition}`}
+              x2={`${currentPosition}`}
+              y1="200"
+              y2="0"
+              style={{
+                fill: 'none',
+                stroke: '#000',
+                strokeWidth: 1,
+                strokeLinecap: 'butt',
+                strokeLinejoin: 'miter',
+                strokeOpacity: 1,
+              }}
+            ></line>
+          )}
           {upKey.map((el, i) => (
             <>
               <path
                 d="M303.137 299.651c-3.396 1.82-5.205 5.115-4.092 7.593 1.187 2.644 5.267 3.39 9.107 1.665 3.84-1.724 5.992-5.269 4.804-7.913-1.187-2.643-5.267-3.39-9.106-1.665-.24.108-.486.199-.713.32z"
                 transform={`rotate(180 ${194 + i * 11} ${el})`}
                 opacity={0.9}
-                fill="#000"
+                // fill="#000"
+                fill={`${currentPosition === el ? '#8597a6' : '#000'}`}
                 fillOpacity={1}
                 fillRule="evenodd"
                 stroke="none"

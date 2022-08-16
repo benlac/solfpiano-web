@@ -4,7 +4,6 @@ import { StateGame, Action } from '../types/store/game';
 export const gameInitialState: StateGame = {
   playing: false,
   keyToPlay: [],
-  currentDownKey: [],
   count: 0,
 };
 
@@ -20,11 +19,6 @@ export const gameReducer = (state = gameInitialState, action: Action) => {
       return {
         ...state,
         keyToPlay: action.payload,
-      };
-    case 'SET_CURRENT_DOWN_KEY':
-      return {
-        ...state,
-        currentDownKey: action.payload,
       };
     case 'SET_COUNT':
       return {

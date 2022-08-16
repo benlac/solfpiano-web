@@ -6,16 +6,17 @@ interface Props {
   data: Array<any>;
   handleChange: (e: any) => void;
   isDisabled: boolean;
+  placeholder: number;
 }
 
 function SelectComponent(props: Props) {
   const [, dispatch] = useStore();
-  const { data, handleChange, isDisabled } = props;
+  const { data, handleChange, isDisabled, placeholder } = props;
 
   return (
     <Select
       options={data}
-      placeholder="Choose"
+      placeholder={placeholder}
       onChange={handleChange}
       isDisabled={isDisabled}
     />

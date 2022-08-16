@@ -4,6 +4,7 @@ import { StateParameters, Action } from '../types/store/parameters';
 export const parametersInitialState: StateParameters = {
   level: 1,
   exercice: 1,
+  speed: 0,
 };
 
 // parameters Reducer
@@ -21,6 +22,11 @@ export const parametersReducer = (
       return {
         ...state,
         exercice: action.payload,
+      };
+    case 'SET_SPEED':
+      return {
+        ...state,
+        speed: action.payload,
       };
     default:
       return state;
