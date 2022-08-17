@@ -17,7 +17,7 @@ const initalStore = {
 };
 
 // Combine reducers
-const reducers = (store: Store, action: Action) => ({
+const reducers = (store: Store, action: any) => ({
   parameters: parametersReducer(store.parameters, action),
   game: gameReducer(store.game, action),
 });
