@@ -30,6 +30,13 @@ function Selectors() {
   const metronome = new Audio(toc_metronome);
   const un_ = new Audio(oneSong);
   const two_ = new Audio(twoSong);
+  const do_ = new Audio(doSong);
+  const re_ = new Audio(reSong);
+  const mi_ = new Audio(miSong);
+  const fa_ = new Audio(faSong);
+  const sol_ = new Audio(solSong);
+  const la_ = new Audio(laSong);
+  const si_ = new Audio(siSong);
 
   useInterval(
     () => {
@@ -42,25 +49,18 @@ function Selectors() {
       } else {
         switch (game.keyToPlay[game.count - 2]) {
           case 'do_':
-            const do_ = new Audio(doSong);
             return do_.play();
           case 're_':
-            const re_ = new Audio(reSong);
             return re_.play();
           case 'mi_':
-            const mi_ = new Audio(miSong);
             return mi_.play();
           case 'fa_':
-            const fa_ = new Audio(faSong);
             return fa_.play();
           case 'sol_':
-            const sol_ = new Audio(solSong);
             return sol_.play();
           case 'la_':
-            const la_ = new Audio(laSong);
             return la_.play();
           case 'si_':
-            const si_ = new Audio(siSong);
             return si_.play();
           default:
             return null;
