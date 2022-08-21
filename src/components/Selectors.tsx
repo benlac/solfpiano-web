@@ -2,17 +2,11 @@ import React, { useEffect } from 'react';
 import { useStore } from '../store/store';
 import SelectComponent from './SelectComponent';
 import toc_metronome from '../assets/audio/toc_metronome.mp3';
-import doSong from '../assets/audio/do-k.mp3';
-import reSong from '../assets/audio/re-k.mp3';
-import solSong from '../assets/audio/sol-k.mp3';
-import miSong from '../assets/audio/mi-k.mp3';
-import laSong from '../assets/audio/la-k.mp3';
-import siSong from '../assets/audio/si-k.mp3';
-import faSong from '../assets/audio/fa-k.mp3';
 import oneSong from '../assets/audio/un.mp3';
 import twoSong from '../assets/audio/deux.mp3';
 import useInterval from '../hooks/useInterval';
 import { levels as listLevels } from '../helpers/levels';
+import importRightNote from '../helpers/loadNotes';
 
 const levels = new Array(31).fill(0).map((_, i) => ({
   value: i + 1,
@@ -28,13 +22,6 @@ const exercices = [
 function Selectors() {
   const [{ parameters, game }, dispatch] = useStore();
   const metronome = new Audio(toc_metronome);
-  const do_ = new Audio(doSong);
-  const sol_ = new Audio(solSong);
-  const re_ = new Audio(reSong);
-  const mi_ = new Audio(miSong);
-  const fa_ = new Audio(faSong);
-  const la_ = new Audio(laSong);
-  const si_ = new Audio(siSong);
   const un_ = new Audio(oneSong);
   const two_ = new Audio(twoSong);
 
@@ -47,7 +34,7 @@ function Selectors() {
       } else if (game.count === 1) {
         two_.play();
       } else {
-        eval(game.keyToPlay[game.count - 2]).play();
+        importRightNote(game.keyToPlay[game.count - 2]);
       }
     },
     game.playing ? (60 / parameters.speed) * 1000 : null

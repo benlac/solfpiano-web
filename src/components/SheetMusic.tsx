@@ -10,8 +10,7 @@ const SheetMusic = (props: Props) => {
   const [currentPosition, setCurrentPosition] = useState<number>(82);
   const [{ game }] = useStore();
   const { upKey, downKey } = props;
-  console.log(game.keyToPlay);
-  console.log(upKey);
+
   useEffect(() => {
     // dynamiser 42 par le nombre de note possible dans le store
     if (game.count >= 42) {
@@ -218,20 +217,6 @@ const SheetMusic = (props: Props) => {
               strokeOpacity: 1,
             }}
           />
-          {/* <line
-            x1="80"
-            x2="80"
-            y1="200"
-            y2="0"
-            style={{
-              fill: 'none',
-              stroke: '#000',
-              strokeWidth: 1,
-              strokeLinecap: 'butt',
-              strokeLinejoin: 'miter',
-              strokeOpacity: 1,
-            }}
-          ></line> */}
           {game.playing && (
             <line
               x1={`${currentPosition}`}
